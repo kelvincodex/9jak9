@@ -2,11 +2,9 @@
 
 use App\Http\Controllers\AdminsController;
 use App\Http\Controllers\AuthenticationsController;
-use App\Http\Controllers\BrandsController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\CustomersController;
-use App\Http\Controllers\DeliveryController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductsController;
@@ -72,13 +70,7 @@ Route::prefix('v1')->group(function (){
             Route::post('/delete-wishlist', 'delete');
         });
 
-    //todo delivery route
-    Route::controller(DeliveryController::class)->group(function (){
-        Route::get('/read-delivery', 'read');
-        Route::post('/create-delivery', 'create');
-        Route::post('/read-delivery-by-id', 'readById');
-        Route::post('/update-delivery', 'update');
-    });
+
 
     //todo gallery route
     Route::controller(GalleryController::class)->group(function (){
@@ -105,15 +97,7 @@ Route::prefix('v1')->group(function (){
     });
 
 
-    //todo public brand route
-    Route::controller(BrandsController::class)
-        ->group(function (){
-            Route::post('/create-brand', 'create')->name('createBrand');
-            Route::post('/update-brand', 'update')->name('updateBrand');
-            Route::get('/read-brands', 'read')->name('readBrand');
-            Route::post('/read-brand-by-id', 'readById')->name('readByIdBrand');
-            Route::post('/delete-brand', 'delete')->name('deleteBrand');
-        });
+
 
 
 
