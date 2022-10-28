@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -21,21 +22,22 @@ class Order extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'orderCustomerId',
-        'orderDeliveryId',
         'orderSubTotalPrice',
         'orderStatus',
         'orderTotalPrice',
+        'orderProductName',
+        'orderProductId',
+        'orderProductQuantity',
+        'orderProductVariation',
+        'orderProductPrice',
+        'orderAddress',
+        'orderFullName',
+        'orderEmail'
     ];
 
-    public function delivery():HasOne
+    public function products(): HasMany
     {
-        return $this->hasOne(Delivery::class,'orderDeliveryId', 'deliveryId');
-    }
-
-    public function customer(): BelongsTo
-    {
-        return $this->belongsTo(Customer::class, 'orderCustomerId', 'customerId');
+        return $this->hasMany(Product::class, 'orderProductId', 'productId');
     }
 
 

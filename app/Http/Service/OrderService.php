@@ -11,6 +11,7 @@ use App\Mail\OtpMail;
 use App\Models\Customer;
 use App\Models\Delivery;
 use App\Models\Order;
+use App\Models\Product;
 use App\Util\baseUtil\ResponseUtil;
 use App\Util\exceptionUtil\ExceptionCase;
 use App\Util\exceptionUtil\ExceptionUtil;
@@ -27,23 +28,33 @@ class OrderService
     public function create(CreateOrderRequest $request): JsonResponse
     {
         try {
+            $order= [];
+            //todo  validate
+            $request->validated();
 
-            //  validate
-            $request->validated($request);
-            //  action
-            $delivery = Delivery::find($request['orderDeliveryId']);
-            if (!$delivery) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_LOCATE_RECORD);
+            //todo  action
+            foreach ($request['orderItem'] as $items){
+                //todo check if product exist
+                $product = Product::find($items['orderProductId']);
+                if (!$product)
+                    throw new ExceptionUtil(ExceptionCase::UNABLE_TO_LOCATE_RECORD);
+                $data[] =[
+                    'orderSubTotalPrice' => $request['orderSubTotalPrice'],
+                    'orderTotalPrice'=>$request['orderTotalPrice'],
+                    'orderProductQuantity'=>$items['orderProductQuantity'],
+                    'orderProductVariation'=>$items['orderProductVariation'],
+                    'orderProductPrice'=>$items['orderProductPrice'],
+                    'orderAddress'=>$request['orderAddress'],
+                    'orderFullName'=>$request['orderFullName'],
+                    'orderEmail'=>$request['orderEmail'],
+                    'orderProductName'=>$product['productName']
+                ];
+//                dd($data);
+                 $order = $product->orders()->create(...$data);
+            }
 
-            $order = Order::create(array_merge($request->all(),['orderStatus'=>'PENDING']));
-
-            //  check if successful
+            //todo  check if successful
             if (!$order) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_CREATE);
-            //  send email
-            // mark all items in the cart as pending
-            $customer = Customer::find($request['orderCustomerId']);
-            $email =  Mail::to($customer['customerEmail'])->send(new OrderSuccessfulMail());
-            //check if email sent
-            if (!$email) throw new ExceptionUtil(ExceptionCase::SOMETHING_WENT_WRONG);
 
             return $this->SUCCESS_RESPONSE("CREATED SUCCESSFUL");
         }catch (Exception $ex){
@@ -52,15 +63,15 @@ class OrderService
 
     }
 
-    public function update(UpdateOrderRequest $request): JsonResponse
+   public function update(UpdateOrderRequest $request): JsonResponse
     {
         try {
-            //  validate
-            $request->validated($request);
-            //  action
-             $delivery = Order::where('orderId', $request['orderId'])->first();
-             if (!$delivery) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_LOCATE_RECORD);
-            $response =    $delivery->update(['orderStatus'=>$request['orderStatus']]
+            //todo  validate
+            $request->validated();
+            //todo  action
+             $order = Order::where('orderId', $request['orderId'])->first();
+             if (!$order) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_LOCATE_RECORD);
+            $response =    $order->update(['orderStatus'=>$request['orderStatus']]
             );
             if (!$response) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_UPDATE);
 
@@ -75,9 +86,9 @@ class OrderService
     public function read(): JsonResponse
     {
         try {
-            $delivery = Order::all();
-            if (!$delivery)  throw new ExceptionUtil(ExceptionCase::NOT_SUCCESSFUL);
-            return $this->BASE_RESPONSE($delivery);
+            $order = Order::all();
+            if (!$order)  throw new ExceptionUtil(ExceptionCase::NOT_SUCCESSFUL);
+            return $this->BASE_RESPONSE($order);
         }catch (Exception $ex){
             return $this->ERROR_RESPONSE($ex->getMessage());
         }
@@ -91,9 +102,9 @@ class OrderService
             $request->validated($request->all());
 
             //todo action
-            $delivery = Order::where('orderId', $request['orderId'])->first();
-            if (!$delivery) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_LOCATE_RECORD);
-            return  $this->BASE_RESPONSE($delivery);
+            $order = Order::where('orderId', $request['orderId'])->first();
+            if (!$order) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_LOCATE_RECORD);
+            return  $this->BASE_RESPONSE($order);
         }catch (Exception $ex){
             return $this->ERROR_RESPONSE($ex->getMessage());
         }

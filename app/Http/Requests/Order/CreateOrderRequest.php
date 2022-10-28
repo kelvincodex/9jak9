@@ -24,8 +24,13 @@ class CreateOrderRequest extends FormRequest
     public function rules()
     {
         return [
-            'orderCustomerId'=>['required'],
-            'orderDeliveryId'=>['required'],
+            'orderFullName'=>['required'],
+            'orderAddress'=>['required'],
+            'orderEmail'=>['required', 'email'],
+            'orderItem.*.orderProductVariation'=>['required'],
+            'orderItem.*.orderProductQuantity'=>['required'],
+            'orderItem.*.orderProductPrice'=>['required'],
+            'orderItem.*.orderProductId'=>['required'],
             'orderSubTotalPrice'=>['required'],
             'orderTotalPrice'=>['required'],
         ];

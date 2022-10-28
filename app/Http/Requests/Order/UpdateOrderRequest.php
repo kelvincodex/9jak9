@@ -26,7 +26,9 @@ class UpdateOrderRequest extends FormRequest
         return [
             'orderId'=>['required'],
             'orderStatus'=>['required'],
-            'orderCustomerId'=>['required'],
+            'orderFullName'=>['required'],
+            'orderEmail'=>['required'],
+            'orderAddress'=>['required'],
         ];
     }
 }

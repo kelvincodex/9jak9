@@ -15,13 +15,20 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id("orderId");
-            $table->foreignId("orderCustomerId")
-                    ->constrained('customers', 'customerId')->onDelete('cascade');
             $table->string("orderTotalPrice")->nullable();
             $table->string("orderAddress")->nullable();
-            $table->string("orderName")->nullable();
+            $table->string("orderFullName")->nullable();
+            $table->string("orderEmail")->nullable();
+            $table->string("orderProductName")->nullable();
+            $table->string("orderProductQuantity")->nullable();
+            $table->string("orderProductVariation")->nullable();
+            $table->string("orderProductPrice")->nullable();
+            //todo foreign key for product
+            $table->foreignId("orderProductId")
+                ->constrained('products', 'productId')
+                ->onDelete('cascade');
             $table->string("orderSubTotalPrice")->nullable();
-            $table->string("orderStatus")->nullable();
+            $table->string("orderStatus")->default("PENDING");
             $table->timestamps();
         });
     }

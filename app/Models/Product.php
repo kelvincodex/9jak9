@@ -26,14 +26,14 @@ class Product extends Model
         'productStatus'
     ];
 
-    public function brands(): BelongsTo
+    public function orders(): HasMany
     {
-        return $this->belongsTo(Brand::class, 'productBrandId', 'brandId');
+        return $this->hasMany(Order::class, 'orderProductId', 'productId');
     }
 
     public function categories(): BelongsTo
     {
-        return $this->belongsTo(Brand::class, 'productCategoryId', 'categoryId');
+        return $this->belongsTo(Category::class, 'productCategoryId', 'categoryId');
     }
 
     public function wishLists(): HasMany
