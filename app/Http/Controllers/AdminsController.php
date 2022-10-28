@@ -33,11 +33,6 @@ class AdminsController extends Controller
     {
         return $this->adminService->addProduct();
     }
-    //todo view brands
-    public function brands(): View|Factory|Application
-    {
-        return $this->adminService->brands();
-    }
 
     //todo view categories
     public function categories(): View|Factory|Application

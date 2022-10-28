@@ -20,8 +20,7 @@ class AdminService
 
     /*todo constructor */
     public function __construct(
-        protected CategoryService $categoryService,
-        protected BrandsController $brandsController,
+        protected CategoryService $categoryService
     )
     {
         $this->currentRouteName = Route::currentRouteName();
@@ -76,16 +75,7 @@ class AdminService
     }
 
 
-    /*todo brands*/
-    public function brands(): Factory|View|Application
-    {
-        $brands = Brand::latest()->get();
-        return view('admin.brand.index',[
-            'sidebar'=>$this->sidebarList,
-            'routeName'=>$this->currentRouteName,
-            'brands'=>$brands
-        ]);
-    }
+
 
     /*todo category*/
     public function categories(): Factory|View|Application
