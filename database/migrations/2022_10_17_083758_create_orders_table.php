@@ -17,9 +17,9 @@ return new class extends Migration
             $table->id("orderId");
             $table->foreignId("orderCustomerId")
                     ->constrained('customers', 'customerId')->onDelete('cascade');
-            $table->foreignId("orderDeliveryId")
-                    ->constrained('deliveries', 'deliveryId')->onDelete('cascade');
             $table->string("orderTotalPrice")->nullable();
+            $table->string("orderAddress")->nullable();
+            $table->string("orderName")->nullable();
             $table->string("orderSubTotalPrice")->nullable();
             $table->string("orderStatus")->nullable();
             $table->timestamps();

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\WishList\CreateWishlistRequest;
-use App\Http\Requests\WishList\ReadByIdWishlistRequest;
+use App\Http\Requests\WishList\ReadByWishlistIdRequest;
 use App\Http\Requests\WishList\UpdateWishlistRequest;
 use App\Http\Service\WishlistService;
 use App\Util\baseUtil\ResponseUtil;
@@ -36,12 +36,12 @@ class WishlistsController extends Controller
         return $this->wishListService->read();
     }
 
-    public function readById(ReadByIdWishlistRequest $request): JsonResponse
+    public function readById(ReadByWishlistIdRequest $request): JsonResponse
     {
         return $this->wishListService->readById($request);
     }
 
-    public function delete(ReadByIdWishlistRequest $request): JsonResponse
+    public function delete(ReadByWishlistIdRequest $request): JsonResponse
     {
         return $this->wishListService->delete($request);
     }

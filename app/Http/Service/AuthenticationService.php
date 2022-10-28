@@ -34,7 +34,7 @@ class AuthenticationService
         try {
             $otp = $this->OTP();
             //todo validate
-            $request->validated($request);
+            $request->validated($request->all());
 
             //todo action
 
@@ -67,7 +67,7 @@ class AuthenticationService
     {
         try {
             //todo validate
-            $request->validated($request);
+            $request->validated($request->all());
             //todo action
             //todo check if the email exist
             $customer = Customer::where('customerEmail', $request['customerEmail'])
@@ -106,7 +106,7 @@ class AuthenticationService
     {
         try {
             //todo validation
-            $request->validated($request);
+            $request->validated($request->all());
             $otp = $this->OTP();
             //todo action
             $customer = Customer::where('customerEmail', $request['customerEmail'])->first();

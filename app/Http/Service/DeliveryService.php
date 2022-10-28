@@ -4,7 +4,7 @@ namespace App\Http\Service;
 
 use App\Http\Requests\Authentication\InitiateEnrollmentRequest;
 use App\Http\Requests\Delivery\CreateDeliveryRequest;
-use App\Http\Requests\Delivery\ReadByIdDeliveryRequest;
+use App\Http\Requests\Delivery\ReadByDeliveryIdRequest;
 use App\Http\Requests\Delivery\UpdateDeliveryRequest;
 use App\Mail\OtpMail;
 use App\Models\Customer;
@@ -83,7 +83,7 @@ class DeliveryService
 
     }
 
-    public function readById(ReadByIdDeliveryRequest $request): JsonResponse
+    public function readById(ReadByDeliveryIdRequest $request): JsonResponse
     {
         try {
             //todo validation

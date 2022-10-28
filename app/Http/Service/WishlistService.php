@@ -3,7 +3,7 @@
 namespace App\Http\Service;
 
 use App\Http\Requests\WishList\CreateWishlistRequest;
-use App\Http\Requests\WishList\ReadByIdWishlistRequest;
+use App\Http\Requests\WishList\ReadByWishlistIdRequest;
 use App\Http\Requests\WishList\UpdateWishlistRequest;
 use App\Models\Customer;
 use App\Models\Product;
@@ -68,7 +68,7 @@ class WishlistService
         }
     }
 
-    public function readById(ReadByIdWishlistRequest $request): JsonResponse
+    public function readById(ReadByWishlistIdRequest $request): JsonResponse
     {
         try {
             //TODO VALIDATION
@@ -83,7 +83,7 @@ class WishlistService
         }
     }
 
-    public function delete(ReadByIdWishlistRequest $request): JsonResponse
+    public function delete(ReadByWishlistIdRequest $request): JsonResponse
     {
         try {
             //TODO VALIDATION

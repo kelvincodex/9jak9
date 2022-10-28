@@ -22,6 +22,7 @@ class Product extends Model
         'productDescription',
         'productDiscount',
         'productQuantity',
+        'productSlug',
         'productStatus'
     ];
 

@@ -25,14 +25,12 @@ class CreateProductRequest extends FormRequest
     {
         return [
             'productName'=>['required', 'string'],
-            'productBrandId'=>['required'],
             'productSellingPrice'=>['required', 'string'],
             'productOfferPrice'=>['required', 'string'],
-            'productImage'=>['required'],
+            'productImage'=>['required', 'image'],
             'productDescription'=>['required','string'],
             'productDiscount'=>['required', 'string'],
             'productQuantity'=>['required', 'string'],
-            'productCategoryId'=>['required'],
         ];
     }
 

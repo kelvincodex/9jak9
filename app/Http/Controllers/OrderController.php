@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Order\CreateOrderRequest;
 use App\Http\Requests\Order\UpdateOrderRequest;
-use App\Http\Requests\Order\ReadByIdOrderRequest;
+use App\Http\Requests\Order\ReadByOrderIdRequest;
 use App\Http\Service\orderService;
 use App\Util\baseUtil\ResponseUtil;
 use App\Util\exceptionUtil\ExceptionCase;
@@ -39,7 +39,7 @@ class OrderController extends Controller
         return $this->orderService->read();
     }
 
-    public function readById(ReadByIdOrderRequest $request): JsonResponse
+    public function readById(ReadByOrderIdRequest $request): JsonResponse
     {
        return $this->orderService->readById($request);
     }

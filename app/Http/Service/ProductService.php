@@ -3,7 +3,7 @@
 namespace App\Http\Service;
 
 use App\Http\Requests\Product\CreateProductRequest;
-use App\Http\Requests\Product\ReadByIdProductRequest;
+use App\Http\Requests\Product\ReadByProductIdRequest;
 use App\Http\Requests\Product\UpdateProductRequest;
 use App\Models\Brand;
 use App\Models\Category;
@@ -15,6 +15,7 @@ use App\Util\exceptionUtil\ExceptionUtil;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Str;
 use function GuzzleHttp\Promise\all;
 
 class ProductService
@@ -28,8 +29,7 @@ class ProductService
             $request->validated($request);
             //TODO ACTION
             $category = Category::find($request['productCategoryId']);
-            $brand = Brand::find($request['productBrandId']);
-            if (!$category || !$brand) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_LOCATE_RECORD, "INVALID BRAND ID");
+            if (!$category) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_LOCATE_RECORD, "INVALID CATEGORY ID");
 
           /*todo check if file exist */
             if (!$request->hasFile('productImage'))
@@ -40,7 +40,7 @@ class ProductService
             $response = $category->products()->create(array_merge($request->all(), [
 //                'productImage'=> "public/storage/uploads/$fileName",
                 'productImage'=> URL::asset("storage/uploads/$fileName"),
-                "productStatus"=>'ACTIVE'
+                "productSlug"=> Str::slug($request['productName'], "-"),
             ]));
             if (!$response) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_CREATE);
 
@@ -77,7 +77,7 @@ class ProductService
         }
     }
 
-    public function readById(ReadByIdProductRequest $request): JsonResponse
+    public function readById(ReadByProductIdRequest $request): JsonResponse
     {
         try {
             //TODO VALIDATION
@@ -91,7 +91,7 @@ class ProductService
         }
     }
 
-    public function delete(ReadByIdProductRequest $request){
+    public function delete(ReadByProductIdRequest $request){
         try {
             //TODO VALIDATION
             $request->validated($request->all());

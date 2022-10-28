@@ -3,7 +3,7 @@
 namespace App\Http\Service;
 
 use App\Http\Requests\Category\CreateCategoryRequest;
-use App\Http\Requests\Category\ReadByIdCategoryRequest;
+use App\Http\Requests\Category\ReadByCategoryIdRequest;
 use App\Http\Requests\Category\UpdateCategoryRequest;
 use App\Http\Requests\Product\UpdateProductRequest;
 use App\Models\Category;
@@ -23,8 +23,7 @@ class CategoryService
             //TODO VALIDATION
             $request->validated($request);
             //TODO ACTION
-            $response = Category::create(array_merge($request->all(),
-                ['categoryStatus'=>'ACTIVE']));
+            $response = Category::create($request->all());
             if (!$response) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_CREATE);
 
             return $this->SUCCESS_RESPONSE("CATEGORY CREATED SUCCESSFUL");
@@ -40,8 +39,7 @@ class CategoryService
             $request->validated($request);
             //TODO ACTION
             $category = Category::find($request['categoryId']);
-            $response = $category->update(array_merge($request->except('categoryId'),
-                ['categoryStatus'=>'ACTIVE']));
+            $response = $category->update($request->except('categoryId'));
             if (!$response) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_UPDATE);
             return  $this->SUCCESS_RESPONSE("CATEGORY UPDATED SUCCESSFUL");
         }catch (Exception $ex){
@@ -59,7 +57,7 @@ class CategoryService
         }
     }
 
-    public function readById(ReadByIdCategoryRequest $request): JsonResponse
+    public function readById(ReadByCategoryIdRequest $request): JsonResponse
     {
         try {
             //TODO VALIDATION
@@ -73,7 +71,7 @@ class CategoryService
         }
     }
 
-    public function delete(ReadByIdCategoryRequest $request): JsonResponse
+    public function delete(ReadByCategoryIdRequest $request): JsonResponse
     {
         try {
             //TODO VALIDATION

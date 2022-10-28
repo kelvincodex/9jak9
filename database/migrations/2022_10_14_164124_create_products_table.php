@@ -21,16 +21,12 @@ return new class extends Migration
             $table->string("productImage")->nullable();
             $table->longText("productDescription")->nullable();
             $table->string("productDiscount")->nullable();
-            //todo foreign key for brands
-            $table->foreignId("productBrandId")
-                ->constrained('brands', 'brandId')
-                ->onDelete('cascade');
-
             //todo foreign key for category
             $table->foreignId("productCategoryId")
                 ->constrained('categories', 'categoryId')
                 ->onDelete('cascade');
             $table->string("productQuantity")->nullable();
+            $table->string("productSlug")->nullable();
             $table->string("productStatus")->default("Active");
             $table->timestamps();
         });

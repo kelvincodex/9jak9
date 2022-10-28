@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Cart;
+namespace App\Http\Requests\Brand;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateCartRequest extends FormRequest
+class ReadByBrandIdRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,10 +24,8 @@ class UpdateCartRequest extends FormRequest
     public function rules()
     {
         return [
-            'cartId'=>['required', 'max:255'],
-            'cartCustomerId'=>['required', 'max:255'],
-            'cartProductId'=>['required', 'max:255'],
-            'cartAddedQuantity'=>['required', 'max:255'],
+            'brandId'=>['required'],
         ];
     }
+
 }

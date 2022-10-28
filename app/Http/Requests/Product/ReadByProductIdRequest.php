@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Category;
+namespace App\Http\Requests\Product;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ReadByIdCategoryRequest extends FormRequest
+class ReadByProductIdRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,7 @@ class ReadByIdCategoryRequest extends FormRequest
     public function rules()
     {
         return [
-            'categoryId'=>['required'],
+            'productId'=>['required'],
         ];
     }
 }

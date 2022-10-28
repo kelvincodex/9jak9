@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Delivery\CreateDeliveryRequest;
 use App\Http\Requests\Delivery\UpdateDeliveryRequest;
-use App\Http\Requests\Delivery\ReadByIdDeliveryRequest;
+use App\Http\Requests\Delivery\ReadByDeliveryIdRequest;
 use App\Http\Service\deliveryService;
 use App\Models\Delivery;
 use App\Util\baseUtil\ResponseUtil;
@@ -40,7 +40,7 @@ class DeliveryController extends Controller
         return $this->deliveryService->read();
     }
 
-    public function readById(ReadByIdDeliveryRequest $request): JsonResponse
+    public function readById(ReadByDeliveryIdRequest $request): JsonResponse
     {
        return $this->deliveryService->readById($request);
     }

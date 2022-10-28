@@ -3,10 +3,10 @@
 namespace App\Http\Service;
 
 use App\Http\Requests\Brand\CreateBrandRequest;
-use App\Http\Requests\Brand\ReadByIdBrandRequest;
+use App\Http\Requests\Brand\ReadByBrandIdRequest;
 use App\Http\Requests\Brand\UpdateBrandRequest;
 use App\Http\Requests\Category\CreateCategoryRequest;
-use App\Http\Requests\Category\ReadByIdCategoryRequest;
+use App\Http\Requests\Category\ReadByCategoryIdRequest;
 use App\Http\Requests\Category\UpdateCategoryRequest;
 use App\Models\Brand;
 use App\Models\Category;
@@ -24,7 +24,7 @@ class BrandService
     {
         try {
             //TODO VALIDATION
-            $request->validated($request);
+            $request->validated($request->all());
             //TODO ACTION
             $response = Brand::create(array_merge($request->all(),
                 ['brandStatus'=>'ACTIVE']));
@@ -40,7 +40,7 @@ class BrandService
     {
         try {
             //TODO VALIDATION
-            $request->validated($request);
+            $request->validated($request->all());
             //TODO ACTION
             $brand = Brand::find($request['brandId']);
             if (!$brand) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_LOCATE_RECORD);
@@ -63,7 +63,7 @@ class BrandService
         }
     }
 
-    public function readById(ReadByIdBrandRequest $request): JsonResponse
+    public function readById(ReadByBrandIdRequest $request): JsonResponse
     {
         try {
             //TODO VALIDATION
@@ -77,7 +77,7 @@ class BrandService
         }
     }
 
-    public function delete(ReadByIdBrandRequest $request): JsonResponse
+    public function delete(ReadByBrandIdRequest $request): JsonResponse
     {
         try {
             //TODO VALIDATION

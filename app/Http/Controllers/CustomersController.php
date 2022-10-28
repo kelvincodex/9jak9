@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Customer\ReadByIdCustomerRequest;
+use App\Http\Requests\Customer\ReadByCustomerIdRequest;
 use App\Http\Requests\Customer\UpdateCustomerRequest;
 use App\Http\Service\CustomerService;
 use App\Models\Customer;
@@ -38,7 +38,7 @@ class CustomersController extends Controller
         return "This si response";
     }
 
-    public function readById(ReadByIdCustomerRequest $request): JsonResponse
+    public function readById(ReadByCustomerIdRequest $request): JsonResponse
     {
        return $this->customerService->readById($request);
     }

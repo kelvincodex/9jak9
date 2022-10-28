@@ -5,7 +5,7 @@ namespace App\Http\Service;
 use App\Http\Requests\Authentication\InitiateEnrollmentRequest;
 use App\Http\Requests\Cart\CreateCartRequest;
 use App\Http\Requests\Cart\ReadByCustomerIdRequest;
-use App\Http\Requests\Cart\ReadByIdCartRequest;
+use App\Http\Requests\Cart\ReadByCartIdRequest;
 use App\Http\Requests\Cart\UpdateCartRequest;
 use App\Models\Cart;
 use App\Models\Product;
@@ -28,10 +28,10 @@ class CartService
     {
         try {
 
-            //  validate
-//            $request->validated($request->all());
+            //todo  validate
+            $request->validated($request->all());
 
-            //  check if requested product quantity is available
+            //todo  check if requested product quantity is available
             $product = Product::find($request['cartProductId']);
             if (!$product) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_LOCATE_RECORD);
             if (($product['productQuantity'] - $request['cartAddedQuantity']) < 0) {
@@ -53,22 +53,20 @@ class CartService
     public function update(UpdateCartRequest $request): JsonResponse
     {
         try {
-            //  validate
+            //todo  validate
             $request->validated($request->all());
 
              $cart = Cart::find($request['cartCustomerId']);
              $product = Product::find($request['cartProductId']);
              if (!$product || !$cart) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_LOCATE_RECORD);
 
-            //  check if requested product quantity is available
+            //todo  check if requested product quantity is available
             if (($product['productQuantity'] - $request['cartAddedQuantity']) < 0) {
                 throw new ExceptionUtil(ExceptionCase::SOMETHING_WENT_WRONG , "{$product['productQuantity']} available");
             }
 
             //todo update the cart
-            $response =    $cart->update(array_merge($request->only('cartAddedQuantity'), [
-                'cartStatus'=>'ACTIVE'
-            ]));
+            $response =    $cart->update(array_merge($request->only('cartAddedQuantity')));
 
             if (!$response) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_UPDATE);
 
@@ -110,7 +108,7 @@ class CartService
 
 
 
-    public function delete(ReadByIdCartRequest $request): JsonResponse
+    public function delete(ReadByCartIdRequest $request): JsonResponse
     {
         try {
             //TODO VALIDATION

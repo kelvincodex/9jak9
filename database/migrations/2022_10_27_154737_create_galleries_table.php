@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('galleries', function (Blueprint $table) {
             $table->id("galleryId");
             $table->string("galleryItem")->nullable();
+            $table->string("galleryType")->nullable();
             $table->string("galleryStatus")->default("ACTIVE");
             $table->timestamps();
         });

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Order;
+namespace App\Http\Requests\Gallery;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ReadByIdOrderRequest extends FormRequest
+class UpdateGalleryRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,8 @@ class ReadByIdOrderRequest extends FormRequest
     public function rules()
     {
         return [
-            'orderId'=>['required'],
+            'galleryItem'=>['required', 'image'],
+            'galleryId'=>['required'],
         ];
     }
 }

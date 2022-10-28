@@ -3,7 +3,7 @@
 namespace App\Http\Service;
 
 use App\Http\Repository\CustomerRepository;
-use App\Http\Requests\Customer\ReadByIdCustomerRequest;
+use App\Http\Requests\Customer\ReadByCustomerIdRequest;
 use App\Http\Requests\Customer\UpdateCustomerRequest;
 use App\Models\Customer;
 use App\Util\baseUtil\ResponseUtil;
@@ -56,7 +56,7 @@ class CustomerService
 
     }
 
-    public function readById(ReadByIdCustomerRequest $request): JsonResponse
+    public function readById(ReadByCustomerIdRequest $request): JsonResponse
     {
         try {
             //todo validation

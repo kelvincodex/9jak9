@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Delivery;
+namespace App\Http\Requests\Customer;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ReadByIdDeliveryRequest extends FormRequest
+class ReadByCustomerIdRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,7 @@ class ReadByIdDeliveryRequest extends FormRequest
     public function rules()
     {
         return [
-            'deliveryId'=>['required'],
+            'customerId'=>['required'],
         ];
     }
 }

@@ -4,7 +4,7 @@ namespace App\Http\Requests\Cart;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ReadByIdCartRequest extends FormRequest
+class ReadByCartIdRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,7 @@ class ReadByIdCartRequest extends FormRequest
     public function rules()
     {
         return [
-            'cartCustomerId'=>['required'],
+            'cartId'=>['required'],
         ];
     }
 }

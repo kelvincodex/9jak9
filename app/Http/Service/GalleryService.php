@@ -3,48 +3,74 @@
 namespace App\Http\Service;
 
 use App\Http\Requests\Brand\CreateBrandRequest;
-use App\Http\Requests\Brand\ReadByIdBrandRequest;
+use App\Http\Requests\Brand\ReadByBrandIdRequest;
 use App\Http\Requests\Brand\UpdateBrandRequest;
+use App\Http\Requests\Gallery\CreateGalleryRequest;
+use App\Http\Requests\Gallery\ReadByGalleryIdRequest;
+use App\Http\Requests\Gallery\UpdateGalleryRequest;
 use App\Models\Brand;
+use App\Models\Gallery;
 use App\Util\baseUtil\ResponseUtil;
 use App\Util\exceptionUtil\ExceptionCase;
 use App\Util\exceptionUtil\ExceptionUtil;
 use Exception;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\URL;
 
 class GalleryService
 {
     use ResponseUtil;
 
-    public function create(CreateBrandRequest $request): JsonResponse
+    public function create(CreateGalleryRequest $request): JsonResponse
     {
         try {
             //TODO VALIDATION
-            $request->validated($request);
+            $request->validated($request->all());
             //TODO ACTION
-            $response = Brand::create(array_merge($request->all(),
-                ['brandStatus'=>'ACTIVE']));
+
+            /*todo check if file exist */
+            if (!$request->hasFile('galleryItem'))
+                throw new ExceptionUtil(ExceptionCase::UNABLE_TO_LOCATE_RECORD, "COULDN'T NOT FIND IMAGE");
+            $fileName = time().'_'.$request->file('galleryItem')->getClientOriginalName();
+            $request->file('galleryItem')->move(public_path('storage/galleries'), $fileName);
+//            dd(URL::asset("storage/galleries/$fileName"));
+
+            $response = Gallery::create(array_merge($request->all(),[
+                'galleryItem'=> URL::asset("storage/galleries/$fileName")
+            ]));
+
             if (!$response) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_CREATE);
 
-            return $this->SUCCESS_RESPONSE("BRAND CREATED SUCCESSFUL");
+            return $this->SUCCESS_RESPONSE("GALLERY CREATED SUCCESSFUL");
         }catch (Exception $ex){
             return $this->ERROR_RESPONSE($ex->getMessage());
         }
     }
 
 
-    public function update(UpdateBrandRequest $request): JsonResponse
+    public function update(UpdateGalleryRequest $request): JsonResponse
     {
         try {
             //TODO VALIDATION
-            $request->validated($request);
+            $request->validated($request->all());
+
             //TODO ACTION
-            $brand = Brand::find($request['brandId']);
-            if (!$brand) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_LOCATE_RECORD);
-            $response = $brand->update(array_merge($request->except('brandId'),
-                ['brandStatus'=>'ACTIVE']));
+            $gallery = Gallery::find($request['galleryId']);
+            if (!$gallery) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_LOCATE_RECORD);
+
+            /*todo check if file exist */
+            if (!$request->hasFile('galleryItem'))
+                throw new ExceptionUtil(ExceptionCase::UNABLE_TO_LOCATE_RECORD, "COULDN'T NOT FIND IMAGE");
+            $fileName = time().'_'.$request->file('galleryItem')->getClientOriginalName();
+            $request->file('galleryItem')->move(public_path('storage/galleries'), $fileName);
+
+
+
+            $response = $gallery->update(array_merge($request->except('galleryId'),[
+                'galleryItem'=> URL::asset("storage/galleries/$fileName")
+            ]));
             if (!$response) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_CREATE);
-            return  $this->SUCCESS_RESPONSE("BRAND UPDATED SUCCESSFUL");
+            return  $this->SUCCESS_RESPONSE("GALLERY UPDATED SUCCESSFUL");
         }catch (Exception $ex){
             return $this->ERROR_RESPONSE($ex->getMessage());
         }
@@ -52,38 +78,38 @@ class GalleryService
     public function read(): JsonResponse
     {
         try {
-            $brand = Brand::all();
-            if (!$brand)  throw new ExceptionUtil(ExceptionCase::NOT_SUCCESSFUL);
-            return $this->BASE_RESPONSE($brand);
+            $gallery = Gallery::all();
+            if (!$gallery)  throw new ExceptionUtil(ExceptionCase::NOT_SUCCESSFUL);
+            return $this->BASE_RESPONSE($gallery);
         }catch (Exception $ex){
             return $this->ERROR_RESPONSE($ex->getMessage());
         }
     }
 
-    public function readById(ReadByIdBrandRequest $request): JsonResponse
+    public function readById(ReadByGalleryIdRequest $request): JsonResponse
     {
         try {
             //TODO VALIDATION
             $request->validated($request->all());
             //todo action
-            $brand = Brand::where('brandId', $request['brandId'])->first();
-            if (!$brand) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_LOCATE_RECORD);
-            return  $this->BASE_RESPONSE($brand);
+            $gallery = Gallery::where('galleryId', $request['galleryId'])->first();
+            if (!$gallery) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_LOCATE_RECORD);
+            return  $this->BASE_RESPONSE($gallery);
         }catch (Exception $ex){
             return $this->ERROR_RESPONSE($ex->getMessage());
         }
     }
 
-    public function delete(ReadByIdBrandRequest $request): JsonResponse
+    public function delete(ReadByGalleryIdRequest $request): JsonResponse
     {
         try {
             //TODO VALIDATION
             $request->validated($request->all());
-            $brand = Brand::where('brandId', $request['brandId'])->first();
-            if (!$brand) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_LOCATE_RECORD);
-            if (!$brand->delete()) throw new ExceptionUtil(ExceptionCase::SOMETHING_WENT_WRONG);
+            $gallery = Gallery::where('galleryId', $request['galleryId'])->first();
+            if (!$gallery) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_LOCATE_RECORD);
+            if (!$gallery->delete()) throw new ExceptionUtil(ExceptionCase::SOMETHING_WENT_WRONG);
 
-            return  $this->SUCCESS_RESPONSE("BRAND DELETED SUCCESSFUL");
+            return  $this->SUCCESS_RESPONSE("GALLERY DELETED SUCCESSFUL");
         }catch (Exception $ex){
             return $this->ERROR_RESPONSE($ex->getMessage());
         }

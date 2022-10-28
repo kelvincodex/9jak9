@@ -7,6 +7,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\CustomersController;
 use App\Http\Controllers\DeliveryController;
+use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\WishlistsController;
@@ -77,6 +78,14 @@ Route::prefix('v1')->group(function (){
         Route::post('/create-delivery', 'create');
         Route::post('/read-delivery-by-id', 'readById');
         Route::post('/update-delivery', 'update');
+    });
+
+    //todo gallery route
+    Route::controller(GalleryController::class)->group(function (){
+        Route::get('/read-galleries', 'read');
+        Route::post('/create-gallery', 'create');
+        Route::post('/read-gallery-by-id', 'readById');
+        Route::post('/update-gallery', 'update');
     });
 
     //todo order route

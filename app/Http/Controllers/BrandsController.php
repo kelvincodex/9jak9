@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Brand\CreateBrandRequest;
-use App\Http\Requests\Brand\ReadByIdBrandRequest;
+use App\Http\Requests\Brand\ReadByBrandIdRequest;
 use App\Http\Requests\Brand\UpdateBrandRequest;
 use App\Http\Service\BrandService;
 use App\Util\baseUtil\ResponseUtil;
@@ -36,12 +36,12 @@ class BrandsController extends Controller
         return $this->brandService->read();
     }
 
-    public function readById(ReadByIdBrandRequest $request): JsonResponse
+    public function readById(ReadByBrandIdRequest $request): JsonResponse
     {
         return $this->brandService->readById($request);
     }
 
-    public function delete(ReadByIdBrandRequest $request): JsonResponse
+    public function delete(ReadByBrandIdRequest $request): JsonResponse
     {
         return $this->brandService->delete($request);
     }

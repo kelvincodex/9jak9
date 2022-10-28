@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Category\CreateCategoryRequest;
-use App\Http\Requests\Category\ReadByIdCategoryRequest;
+use App\Http\Requests\Category\ReadByCategoryIdRequest;
 use App\Http\Requests\Category\UpdateCategoryRequest;
 use App\Http\Service\CategoryService;
 use App\Util\baseUtil\ResponseUtil;
@@ -31,12 +31,12 @@ class CategoriesController extends Controller
     {
         return $this->categoryService->read();
     }
-    public function readById(ReadByIdCategoryRequest $request): JsonResponse
+    public function readById(ReadByCategoryIdRequest $request): JsonResponse
     {
 
             return $this->categoryService->readById($request);
     }
-    public function delete(ReadByIdCategoryRequest $request): JsonResponse
+    public function delete(ReadByCategoryIdRequest $request): JsonResponse
     {
         return $this->categoryService->delete($request);
     }
