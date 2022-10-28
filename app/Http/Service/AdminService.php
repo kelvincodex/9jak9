@@ -29,7 +29,7 @@ class AdminService
     /*todo overview*/
     public function overview(): Factory|View|Application
     {
-        return view('admin.dashboard.index', [
+        return view('admin.dashboard.Index', [
             'sidebar'=>$this->sidebarList, 'routeName'=>$this->currentRouteName
         ]);
     }
@@ -37,7 +37,7 @@ class AdminService
     /*todo products*/
     public function products(): Factory|View|Application
     {
-        return view('admin.product.index',[
+        return view('admin.product.Index',[
             'sidebar'=>$this->sidebarList,
             'routeName'=>$this->currentRouteName
         ]);
