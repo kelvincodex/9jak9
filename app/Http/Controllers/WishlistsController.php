@@ -15,7 +15,7 @@ class WishlistsController extends Controller
     use ResponseUtil;
 
     public function __construct(protected WishlistService $wishListService){
-        $this->wishListService = $wishListService;
+        //todo no code here
     }
 
 

@@ -14,7 +14,7 @@ use Illuminate\Http\Request;
 class ProductsController extends Controller
 {
     public function __construct(protected ProductService $productService){
-
+        //todo no code here
     }
 
     public function create(CreateProductRequest $request): JsonResponse

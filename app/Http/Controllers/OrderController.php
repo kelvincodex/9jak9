@@ -5,11 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Order\CreateOrderRequest;
 use App\Http\Requests\Order\UpdateOrderRequest;
 use App\Http\Requests\Order\ReadByOrderIdRequest;
-use App\Http\Service\orderService;
+use App\Http\Service\OrderService;
 use App\Util\baseUtil\ResponseUtil;
-use App\Util\exceptionUtil\ExceptionCase;
-use App\Util\exceptionUtil\ExceptionUtil;
-use Exception;
 use Illuminate\Http\JsonResponse;
 
 class OrderController extends Controller
@@ -17,7 +14,7 @@ class OrderController extends Controller
     use ResponseUtil;
 
     public function __construct(protected OrderService $orderService){
-        $this->orderService = $orderService;
+        //todo no code here
     }
 
 

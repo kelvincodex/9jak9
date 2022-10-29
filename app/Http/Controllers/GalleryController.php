@@ -19,7 +19,7 @@ class GalleryController extends Controller
     use ResponseUtil;
 
     public function __construct(protected GalleryService $galleryService){
-
+        //todo no code here
     }
 
 

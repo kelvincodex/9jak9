@@ -8,9 +8,6 @@ use App\Http\Requests\Cart\UpdateCartRequest;
 use App\Http\Requests\Cart\ReadByCartIdRequest;
 use App\Http\Service\cartService;
 use App\Util\baseUtil\ResponseUtil;
-use App\Util\exceptionUtil\ExceptionCase;
-use App\Util\exceptionUtil\ExceptionUtil;
-use Exception;
 use Illuminate\Http\JsonResponse;
 
 class CartController extends Controller
@@ -18,7 +15,7 @@ class CartController extends Controller
     use ResponseUtil;
 
     public function __construct(protected CartService $cartService){
-        $this->cartService = $cartService;
+        //todo no code here
     }
 
     public function create(CreateCartRequest $request): JsonResponse
