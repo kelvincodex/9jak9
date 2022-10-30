@@ -31,7 +31,7 @@ class ProductService
             $category = Category::find($request['productCategoryId']);
             if (!$category) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_LOCATE_RECORD, "INVALID CATEGORY ID");
         $subCategory = SubCategory::find($request['productSubCategoryId']);
-            if (!$subCategory) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_LOCATE_RECORD, "INVALID CATEGORY ID");
+            if (!$subCategory) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_LOCATE_RECORD, "INVALID SUB CATEGORY ID");
 
           /*todo check if file exist */
             if (!$request->hasFile('productImage'))
