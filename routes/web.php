@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminsController;
 use App\Http\Controllers\TestEmailController;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -34,3 +35,15 @@ Route::controller(AdminsController::class)->group(function (){
 });
 
 Route::get('/email', [TestEmailController::class, 'index']);
+
+//todo run command
+Route::get('/artisan/{command}', function($command){
+    //todo check if its migrate  command
+    if($command == 'migrate')
+        $output = ['--force'=>true];
+    else
+        $output = [];
+
+    Artisan::call($command, $output);
+    dd(Artisan::output());
+});

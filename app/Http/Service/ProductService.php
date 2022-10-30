@@ -4,10 +4,10 @@ namespace App\Http\Service;
 
 use App\Http\Requests\Product\CreateProductRequest;
 use App\Http\Requests\Product\ReadByProductIdRequest;
+use App\Http\Requests\Product\ReadProductByCategoryIdRequest;
+use App\Http\Requests\Product\ReadProductBySubCategoryIdRequest;
 use App\Http\Requests\Product\UpdateProductRequest;
-use App\Models\Brand;
 use App\Models\Category;
-use App\Models\Customer;
 use App\Models\Product;
 use App\Util\baseUtil\ResponseUtil;
 use App\Util\exceptionUtil\ExceptionCase;
@@ -16,7 +16,6 @@ use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
-use function GuzzleHttp\Promise\all;
 
 class ProductService
 {
@@ -38,7 +37,6 @@ class ProductService
             $request->file('productImage')->move(public_path('storage/uploads'), $fileName);
 
             $response = $category->products()->create(array_merge($request->all(), [
-//                'productImage'=> "public/storage/uploads/$fileName",
                 'productImage'=> URL::asset("storage/uploads/$fileName"),
                 "productSlug"=> Str::slug($request['productName'], "-"),
             ]));
@@ -91,7 +89,37 @@ class ProductService
         }
     }
 
-    public function delete(ReadByProductIdRequest $request){
+    public function readProductByCategoryId(ReadProductByCategoryIdRequest $request): JsonResponse
+    {
+        try {
+
+            //TODO VALIDATION
+            $request->validated();
+            //todo action
+            $product = Product::where('productCategoryId', $request['productCategoryId'])->get();
+            if (!$product) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_LOCATE_RECORD);
+            return  $this->BASE_RESPONSE($product);
+        }catch (Exception $ex){
+            return $this->ERROR_RESPONSE($ex->getMessage());
+        }
+    }
+    public function readProductBySubCategoryId(ReadProductBySubCategoryIdRequest $request): JsonResponse
+    {
+        try {
+
+            //TODO VALIDATION
+            $request->validated();
+            //todo action
+            $product = Product::where('productSubCategoryId', $request['productSubCategoryId'])->get();
+            if (!$product) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_LOCATE_RECORD);
+            return  $this->BASE_RESPONSE($product);
+        }catch (Exception $ex){
+            return $this->ERROR_RESPONSE($ex->getMessage());
+        }
+    }
+
+    public function delete(ReadByProductIdRequest $request): JsonResponse
+    {
         try {
             //TODO VALIDATION
             $request->validated($request->all());

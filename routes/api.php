@@ -8,6 +8,7 @@ use App\Http\Controllers\CustomersController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductsController;
+use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\WishlistsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -41,14 +42,27 @@ Route::prefix('v1')->group(function (){
                 Route::post('/login', 'login');
                 Route::post('/resend-otp', 'resendOtp');
             });
-    //todo public product route
+        //todo public product route
         Route::controller(ProductsController::class)
             ->group(function (){
                 Route::post('/create-product', 'create')->name("createProduct");
                 Route::post('/update-product', 'update')->name("updateProduct");
                 Route::get('/read-products', 'read')->name("readProduct");
                 Route::post('/read-product-by-id', 'readById')->name("readByIdProduct");
+                Route::post('/read-product-by-category-id', 'readProductByCategoryId')->name("readProductByCategoryIdProduct");
+                Route::post('/read-product-by-sub_category-id', 'readProductBySubCategoryId')->name("readProductBySubCategoryIdProduct");
                 Route::post('/delete-product', 'delete')->name("deleteProduct");
+            });
+
+        //todo public sub category route
+        Route::controller(SubCategoryController::class)
+            ->group(function (){
+                Route::post('/create-sub-category', 'create')->name("createSubCategory");
+                Route::post('/update-sub-category', 'update')->name("updateSubCategory");
+                Route::get('/read-sub-categories', 'read')->name("readSubCategories");
+                Route::post('/read-sub-category-by-id', 'readById')->name("readByIdSubCategory");
+                Route::post('/read-sub-category-by-category-id', 'readByCategoryId')->name("readSubCategoryByCategoryId");
+                Route::post('/delete-sub-category', 'delete')->name("deleteSubCategory");
             });
     //todo public category route
         Route::controller(CategoriesController::class)

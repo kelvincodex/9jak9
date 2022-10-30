@@ -23,7 +23,8 @@ class Product extends Model
         'productDiscount',
         'productQuantity',
         'productSlug',
-        'productStatus'
+        'productStatus',
+        'productSubCategoryId'
     ];
 
     public function orders(): HasMany
@@ -34,6 +35,11 @@ class Product extends Model
     public function categories(): BelongsTo
     {
         return $this->belongsTo(Category::class, 'productCategoryId', 'categoryId');
+    }
+
+    public function subCategories(): BelongsTo
+    {
+        return $this->belongsTo(SubCategory::class, 'productSubCategoryId', 'subCategoryId');
     }
 
     public function wishLists(): HasMany

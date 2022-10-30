@@ -5,7 +5,7 @@ namespace App\Http\Service;
 use App\Http\Requests\Category\CreateCategoryRequest;
 use App\Http\Requests\Category\ReadByCategoryIdRequest;
 use App\Http\Requests\Category\UpdateCategoryRequest;
-use App\Http\Requests\Product\UpdateProductRequest;
+use App\Http\Requests\Product\UpdateSubCategoryRequest;
 use App\Models\Category;
 use App\Models\Product;
 use App\Util\baseUtil\ResponseUtil;

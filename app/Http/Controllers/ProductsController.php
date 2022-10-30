@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Category\CreateCategoryRequest;
 use App\Http\Requests\Product\CreateProductRequest;
 use App\Http\Requests\Product\ReadByProductIdRequest;
+use App\Http\Requests\Product\ReadProductByCategoryIdRequest;
+use App\Http\Requests\Product\ReadProductBySubCategoryIdRequest;
 use App\Http\Requests\Product\UpdateProductRequest;
+use App\Http\Requests\SubCategory\ReadSubCategoryByCategoryId;
 use App\Http\Service\ProductService;
 use App\Models\Category;
 use Illuminate\Http\JsonResponse;
@@ -32,6 +35,14 @@ class ProductsController extends Controller
     public function readById(ReadByProductIdRequest $request): JsonResponse
     {
         return $this->productService->readById($request);
+    }
+    public function readProductByCategoryId(ReadProductByCategoryIdRequest $request): JsonResponse
+    {
+        return $this->productService->readProductByCategoryId($request);
+    }
+    public function readProductBySubCategoryId(ReadProductBySubCategoryIdRequest $request): JsonResponse
+    {
+        return $this->productService->readProductBySubCategoryId($request);
     }
     public function delete(ReadByProductIdRequest $request): JsonResponse
     {
