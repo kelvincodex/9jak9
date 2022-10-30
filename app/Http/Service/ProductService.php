@@ -9,6 +9,7 @@ use App\Http\Requests\Product\ReadProductBySubCategoryIdRequest;
 use App\Http\Requests\Product\UpdateProductRequest;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\SubCategory;
 use App\Util\baseUtil\ResponseUtil;
 use App\Util\exceptionUtil\ExceptionCase;
 use App\Util\exceptionUtil\ExceptionUtil;
@@ -29,6 +30,8 @@ class ProductService
             //TODO ACTION
             $category = Category::find($request['productCategoryId']);
             if (!$category) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_LOCATE_RECORD, "INVALID CATEGORY ID");
+        $subCategory = SubCategory::find($request['productSubCategoryId']);
+            if (!$subCategory) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_LOCATE_RECORD, "INVALID CATEGORY ID");
 
           /*todo check if file exist */
             if (!$request->hasFile('productImage'))
