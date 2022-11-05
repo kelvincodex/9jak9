@@ -40,5 +40,10 @@ class Order extends Authenticatable
         return $this->hasMany(Product::class, 'orderProductId', 'productId');
     }
 
+    public function transactions(): HasMany
+    {
+        return $this->hasMany(Order::class, 'transactionOrderId', 'orderId');
+    }
+
 
 }

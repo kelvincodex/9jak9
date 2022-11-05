@@ -2,14 +2,11 @@
 
 namespace App\Http\Service;
 
-use App\Http\Requests\Authentication\InitiateEnrollmentRequest;
+use App\Events\Model\Transaction\TransactionEvent;
 use App\Http\Requests\Order\CreateOrderRequest;
 use App\Http\Requests\Order\ReadByOrderIdRequest;
 use App\Http\Requests\Order\UpdateOrderRequest;
-use App\Mail\OrderSuccessfulMail;
-use App\Mail\OtpMail;
-use App\Models\Customer;
-use App\Models\Delivery;
+use App\Http\Requests\Transaction\CreateTransactionRequest;
 use App\Models\Order;
 use App\Models\Product;
 use App\Util\baseUtil\ResponseUtil;
@@ -17,16 +14,25 @@ use App\Util\exceptionUtil\ExceptionCase;
 use App\Util\exceptionUtil\ExceptionUtil;
 use Exception;
 use \Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Mail;
-use function MongoDB\BSON\toJSON;
 
 
 class OrderService
 {
     use ResponseUtil;
 
+    public function __construct(protected TransactionService $transactionService){
+
+    }
+
     public function create(CreateOrderRequest $request): JsonResponse
     {
+            event(new TransactionEvent(new CreateTransactionRequest([
+                'transactionName'=>'morah thankgod',
+                'transactionEmail'=>'morahthankgod@gmail.com',
+                'transactionAmount'=>'200',
+                'transactionReference'=>'asas2121nsss',
+            ])));
+
         try {
             $order= [];
             //todo  validate
@@ -51,6 +57,10 @@ class OrderService
                 ];
 //                dd($data);
                  $order = $product->orders()->create(...$data);
+
+                 if ($order){
+
+                 }
             }
 
             //todo  check if successful

@@ -27,7 +27,7 @@ class CreateOrderRequest extends FormRequest
             'orderFullName'=>['required'],
             'orderAddress'=>['required'],
             'orderEmail'=>['required', 'email'],
-            'orderItem.*.orderProductVariation'=>['required'],
+            'orderItem.*.orderProductVariation'=>['string'],
             'orderItem.*.orderProductQuantity'=>['required'],
             'orderItem.*.orderProductPrice'=>['required'],
             'orderItem.*.orderProductId'=>['required'],

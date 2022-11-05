@@ -15,8 +15,7 @@ class AdminsController extends Controller
 {
 
     public function __construct(protected AdminService $adminService){
-        $this->adminService = $adminService;
-
+        //code here
     }
     //todo overview
     public function overview(): View|Factory|Application
@@ -40,13 +39,13 @@ class AdminsController extends Controller
         return $this->adminService->categories();
     }
     //todo view staffs
-    public function staffs(): View|Factory|Application
+    public function gallery(): View|Factory|Application
     {
-        return $this->adminService->staffs();
+        return $this->adminService->gallery();
     }
    //todo view customer
-    public function customers(): View|Factory|Application
+    public function subCategory(): View|Factory|Application
     {
-        return $this->adminService->customers();
+        return $this->adminService->subCategory();
     }
 }

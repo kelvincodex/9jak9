@@ -25,16 +25,11 @@ Route::controller(AdminsController::class)->group(function (){
     Route::get('/admin/dashboard/products', 'products')->name('products');
     Route::get('/admin/dashboard/add-product', 'addProduct')->name('addProduct');
     Route::get('/admin/dashboard/orders', 'orders')->name('orders');
-    Route::get('/admin/dashboard/deliveries', 'deliveries')->name('deliveries');
-    Route::get('/admin/dashboard/add-delivery', 'addDelivery')->name('addDelivery');
-    Route::get('/admin/dashboard/brands', 'brands')->name('brands');
+    Route::get('/admin/dashboard/gallery', 'gallery')->name('brands');
     Route::get('/admin/dashboard/categories', 'categories')->name('categories');
-    Route::get('/admin/dashboard/staffs', 'staffs')->name('staffs');
-    Route::get('/admin/dashboard/add-staff', 'addStaff')->name('addStaff');
-    Route::get('/admin/dashboard/customers', 'customers')->name('customers');
+    Route::get('/admin/dashboard/sub-category', 'subCategory')->name('subCategory');
 });
 
-Route::get('/email', [TestEmailController::class, 'index']);
 
 //todo run command
 Route::get('/artisan/{command}', function($command){
