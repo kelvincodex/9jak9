@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Order\CreateBankDetailsRequest;
 use App\Http\Requests\Order\CreateOrderRequest;
-use App\Http\Requests\Order\UpdateOrderRequest;
-use App\Http\Requests\Order\ReadByOrderIdRequest;
+use App\Http\Requests\Order\UpdateBankDetailsRequest;
+use App\Http\Requests\Order\ReadByBankDetailsIdRequest;
+use App\Http\Requests\OrderDetails\CreateOrderDetailsRequest;
+use App\Http\Requests\OrderItems\CreateOrderItemsRequest;
 use App\Http\Service\OrderService;
 use App\Util\baseUtil\ResponseUtil;
 use Illuminate\Http\JsonResponse;
@@ -18,14 +21,16 @@ class OrderController extends Controller
     }
 
 
-    public function create(CreateOrderRequest $request): JsonResponse
+    public function create(CreateOrderRequest $createOrderRequest,
+                           CreateOrderDetailsRequest $createOrderDetailsRequest,
+                           CreateOrderItemsRequest $createOrderItemsRequest): JsonResponse
     {
-      return  $this->orderService->create($request);
+      return  $this->orderService->create($createOrderRequest, $createOrderDetailsRequest, $createOrderItemsRequest);
     }
 
 
 
-    public function update(UpdateOrderRequest $request): JsonResponse
+    public function update(UpdateBankDetailsRequest $request): JsonResponse
     {
       return  $this->orderService->update($request);
     }
@@ -36,7 +41,7 @@ class OrderController extends Controller
         return $this->orderService->read();
     }
 
-    public function readById(ReadByOrderIdRequest $request): JsonResponse
+    public function readById(ReadByBankDetailsIdRequest $request): JsonResponse
     {
        return $this->orderService->readById($request);
     }

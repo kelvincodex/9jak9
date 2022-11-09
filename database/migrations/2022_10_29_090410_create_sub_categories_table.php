@@ -19,7 +19,7 @@ return new class extends Migration
             $table->foreignId("subCategoryCategoryId")
                     ->constrained('categories', 'categoryId')
                     ->onDelete('cascade');
-            $table->string("subCategoryStatus")->default("ACTIVE");
+            $table->string("subCategoryStatus")->default("Active");
             $table->timestamps();
         });
     }

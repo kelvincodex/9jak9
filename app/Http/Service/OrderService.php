@@ -2,13 +2,13 @@
 
 namespace App\Http\Service;
 
-use App\Events\Model\Transaction\TransactionEvent;
 use App\Http\Requests\Order\CreateOrderRequest;
-use App\Http\Requests\Order\ReadByOrderIdRequest;
 use App\Http\Requests\Order\UpdateOrderRequest;
-use App\Http\Requests\Transaction\CreateTransactionRequest;
+use App\Http\Requests\OrderDetails\CreateOrderDetailsRequest;
+use App\Http\Requests\OrderItems\CreateOrderItemsRequest;
+use App\Models\BankDetails;
 use App\Models\Order;
-use App\Models\Product;
+use App\Models\OrderItems;
 use App\Util\baseUtil\ResponseUtil;
 use App\Util\exceptionUtil\ExceptionCase;
 use App\Util\exceptionUtil\ExceptionUtil;
@@ -20,26 +20,63 @@ class OrderService
 {
     use ResponseUtil;
 
-    public function __construct(protected TransactionService $transactionService){
 
-    }
 
-    public function create(CreateOrderRequest $request): JsonResponse
+    public function create(CreateOrderRequest $createOrderRequest,
+                           CreateOrderDetailsRequest $createOrderDetailsRequest,
+                           CreateOrderItemsRequest $createOrderItemsRequest): JsonResponse
     {
-            event(new TransactionEvent(new CreateTransactionRequest([
-                'transactionName'=>'morah thankgod',
-                'transactionEmail'=>'morahthankgod@gmail.com',
-                'transactionAmount'=>'200',
-                'transactionReference'=>'asas2121nsss',
-            ])));
+       //dd($createOrderItemsRequest->validated("orderItems"));
+        $createOrderRequest->validated();
+       $createOrderItemsRequest->validated();
+        $createOrderDetailsRequest->validated();
+//            event(new TransactionEvent(new CreateTransactionRequest([
+//                'transactionName'=>'morah thankgod',
+//                'transactionEmail'=>'morahthankgod@gmail.com',
+//                'transactionAmount'=>'200',
+//                'transactionReference'=>'asas2121nsss',
+//            ])));
 
         try {
-            $order= [];
-            //todo  validate
-            $request->validated();
+            //create order
+            $order = Order::create($createOrderRequest->validated());
 
-            //todo  action
-            foreach ($request['orderItem'] as $items){
+           //check if it was created
+            if (!$order)
+                throw new ExceptionUtil(ExceptionCase::UNABLE_TO_CREATE, "On able to create order");
+
+            //create order items
+            foreach ($createOrderItemsRequest["orderItems"] as $orderItem){
+
+               $orderItem = $order->orderItems()->create([
+                   'orderItemsTotalPrice'=>$orderItem['orderItemsTotalPrice'],
+                   'orderItemsQuantity'=>$orderItem['orderItemsQuantity'],
+                   'orderItemsProductId'=>$orderItem['orderItemsProductId'],
+               ]);
+
+                if (!$orderItem)
+                    throw new ExceptionUtil(ExceptionCase::UNABLE_TO_CREATE, "On able to create order items");
+            }
+
+            //create order details
+           $orderDetails = $order->orderDetails()->create($createOrderDetailsRequest->validated());
+            if (!$orderDetails)
+                throw new ExceptionUtil(ExceptionCase::UNABLE_TO_CREATE, "On able to create order details");
+
+            $orderItems = OrderItems::where("orderItemsOrderId", $order['orderId'])->get();
+            //dd($order->toArray(), $orderDetails->toArray(), $orderItems->toArray());
+
+            $bankDetail = BankDetails::first();
+
+            $data[] = array_merge($order->toArray(),[
+                'orderDetails'=>$orderDetails->toArray(),
+                'orderItems'=>$orderItems->toArray(),
+                'bankDetail'=>$bankDetail ?? null
+            ]);
+
+          //  dd($data);
+
+        /*            foreach ($request['orderItem'] as $items){
                 //todo check if product exist
                 $product = Product::find($items['orderProductId']);
                 if (!$product)
@@ -61,12 +98,9 @@ class OrderService
                  if ($order){
 
                  }
-            }
+            }*/
 
-            //todo  check if successful
-            if (!$order) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_CREATE);
-
-            return $this->SUCCESS_RESPONSE("CREATED SUCCESSFUL");
+            return $this->BASE_RESPONSE($data);
         }catch (Exception $ex){
             return $this->ERROR_RESPONSE($ex->getMessage());
         }
@@ -105,7 +139,7 @@ class OrderService
 
     }
 
-    public function readById(ReadByOrderIdRequest $request): JsonResponse
+    public function readById(ReadByBankDetailsIdRequest $request): JsonResponse
     {
         try {
             //todo validation

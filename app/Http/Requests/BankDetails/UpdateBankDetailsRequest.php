@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Cart;
+namespace App\Http\Requests\BankDetails;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ReadByCartIdRequest extends FormRequest
+class UpdateBankDetailsRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,11 @@ class ReadByCartIdRequest extends FormRequest
     public function rules()
     {
         return [
-            'cartId'=>['required'],
+            'orderId'=>['required'],
+            'orderStatus'=>['required'],
+            'orderFullName'=>['required'],
+            'orderEmail'=>['required'],
+            'orderAddress'=>['required'],
         ];
     }
 }

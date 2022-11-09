@@ -41,7 +41,7 @@ class ProductService
 
             $response = $category->products()->create(array_merge($request->all(), [
                 'productImage'=> URL::asset("storage/uploads/$fileName"),
-                "productSlug"=> Str::slug($request['productName'], "-"),
+                "productSlug"=> Str::slug($request['productName'], "_"),
             ]));
             if (!$response) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_CREATE);
 

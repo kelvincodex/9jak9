@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
@@ -25,10 +26,9 @@ return new class extends Migration
             $table->string("orderProductPrice")->nullable();
             //todo foreign key for product
             $table->foreignId("orderProductId")
-                ->constrained('products', 'productId')
-                ->onDelete('cascade');
+                ->constrained('products', 'productId');
             $table->string("orderSubTotalPrice")->nullable();
-            $table->string("orderStatus")->default("PENDING");
+            $table->string("orderStatus")->default("Pending");
             $table->timestamps();
         });
     }

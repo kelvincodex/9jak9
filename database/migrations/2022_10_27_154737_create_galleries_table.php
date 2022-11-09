@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id("galleryId");
             $table->string("galleryItem")->nullable();
             $table->string("galleryType")->nullable();
-            $table->string("galleryStatus")->default("ACTIVE");
+            $table->string("galleryStatus")->default("Active");
             $table->timestamps();
         });
     }

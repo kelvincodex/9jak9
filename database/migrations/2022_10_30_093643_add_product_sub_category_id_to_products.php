@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->foreignId("ProductSubCategoryId")
+            $table->foreignId("productSubCategoryId")
                 ->constrained("sub_categories", 'subCategoryId')
             ->onDelete('cascade');
         });
@@ -28,8 +28,8 @@ return new class extends Migration
     public function down()
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->dropForeign('products_ProductSubCategoryId_foreign');
-            $table->dropColumn('ProductSubCategoryId');
+            $table->dropForeign('products_productSubCategoryId_foreign');
+            $table->dropColumn('productSubCategoryId');
         });
     }
 };

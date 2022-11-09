@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Order;
+namespace App\Http\Requests\BankDetails;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateOrderRequest extends FormRequest
+class CreateBankDetailsRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,10 +24,15 @@ class CreateOrderRequest extends FormRequest
     public function rules()
     {
         return [
+            'orderFullName'=>['required'],
+            'orderAddress'=>['required'],
+            'orderEmail'=>['required', 'email'],
+            'orderItem.*.orderProductVariation'=>['string'],
+            'orderItem.*.orderProductQuantity'=>['required'],
+            'orderItem.*.orderProductPrice'=>['required'],
+            'orderItem.*.orderProductId'=>['required'],
             'orderSubTotalPrice'=>['required'],
             'orderTotalPrice'=>['required'],
-            'orderReference'=>['required', 'max:255'],
-            'orderPaymentMethod'=>['required', 'max:255'],
         ];
     }
 }

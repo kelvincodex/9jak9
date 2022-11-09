@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\WishList;
+namespace App\Http\Requests\OrderItems;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateWishlistRequest extends FormRequest
+class CreateOrderItemsRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,9 +24,9 @@ class CreateWishlistRequest extends FormRequest
     public function rules()
     {
         return [
-            'wishlistCustomerId'=>['required'],
-            'wishlistProductId'=>['required'],
+            'orderItems.*.orderItemsTotalPrice'=>['required'],
+            'orderItems.*.orderItemsQuantity'=>['required'],
+            'orderItems.*.orderItemsProductId'=>['required'],
         ];
     }
-
 }

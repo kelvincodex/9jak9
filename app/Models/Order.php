@@ -25,25 +25,20 @@ class Order extends Authenticatable
         'orderSubTotalPrice',
         'orderStatus',
         'orderTotalPrice',
-        'orderProductName',
-        'orderProductId',
-        'orderProductQuantity',
-        'orderProductVariation',
-        'orderProductPrice',
-        'orderAddress',
-        'orderFullName',
-        'orderEmail'
+        'orderReference',
+        'orderPaymentMethod',
     ];
 
-    public function products(): HasMany
+    public function orderDetails(): HasOne
     {
-        return $this->hasMany(Product::class, 'orderProductId', 'productId');
+        return $this->hasOne(OrderDetails::class, 'orderDetailsOrderId', 'orderId');
     }
 
-    public function transactions(): HasMany
+    public function orderItems(): HasMany
     {
-        return $this->hasMany(Order::class, 'transactionOrderId', 'orderId');
+        return $this->hasMany(OrderItems::class, 'orderItemsOrderId', 'orderId');
     }
+
 
 
 }

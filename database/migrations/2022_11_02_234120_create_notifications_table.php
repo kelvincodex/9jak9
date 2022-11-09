@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id("notificationId");
             $table->string("notificationMessage")->nullable();
             $table->string("notificationTitle")->nullable();
-            $table->string("notificationStatus")->default('ACTIVE');
+            $table->string("notificationStatus")->default('Active');
             $table->timestamps();
         });
     }

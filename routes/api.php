@@ -26,22 +26,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->group(function (){
     //todo public routes
-        //todo public customer route
-        Route::controller(CustomersController::class)->group(function (){
-            Route::get('/read-customer', 'read');
-            Route::post('/read-customer-by-id', 'readById');
-        });
-        //todo public authentication route
-        Route::controller(AuthenticationsController::class)
-            ->group(function (){
-                Route::post('/initiate-enrollment', 'initiateEnrollment');
-                Route::post('/complete-enrollment', 'completeEnrollment');
-                Route::post('/initiate-forgotten-password', 'initiateForgottenPassword');
-                Route::post('/complete-forgotten-password', 'completeForgottenPassword');
-                Route::post('/change-password', 'changePassword');
-                Route::post('/login', 'login');
-                Route::post('/resend-otp', 'resendOtp');
-            });
+
+
         //todo public product route
         Route::controller(ProductsController::class)
             ->group(function (){
@@ -74,15 +60,7 @@ Route::prefix('v1')->group(function (){
                 Route::post('/delete-category', 'delete')->name('deleteCategory');
             });
 
-    //todo public wishlist route
-    Route::controller(WishlistsController::class)
-        ->group(function (){
-            Route::post('/create-wishlist', 'create');
-            Route::post('/update-wishlist', 'update');
-            Route::get('/read-wishlists', 'read');
-            Route::post('/read-wishlist-by-id', 'readById');
-            Route::post('/delete-wishlist', 'delete');
-        });
+
 
 
 
@@ -102,14 +80,6 @@ Route::prefix('v1')->group(function (){
         Route::post('/update-order', 'update');
     });
 
-    //todo cart route
-    Route::controller(CartController::class)->group(function (){
-        Route::post('/create-cart', 'create');
-        Route::post('/read-cart-by-customer', 'readByCustomerId');
-        Route::post('/update-cart', 'update');
-        Route::post('/delete-cart', 'delete');
-    });
-
 
 
 
@@ -120,15 +90,6 @@ Route::prefix('v1')->group(function (){
 //todo protected routes
     Route::middleware('auth:sanctum')->group(function () {
         //todo authentication protected route
-        Route::controller(AuthenticationsController::class)
-            ->group(function (){
-                Route::post('/change-password', 'changePassword');
-            });
-        //todo customer protected route
-        Route::controller(CustomersController::class)->group(function (){
-            Route::post('/update-customer', 'update');
-        });
-
     });
 });
 
