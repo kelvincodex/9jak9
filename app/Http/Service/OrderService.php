@@ -26,18 +26,11 @@ class OrderService
                            CreateOrderDetailsRequest $createOrderDetailsRequest,
                            CreateOrderItemsRequest $createOrderItemsRequest): JsonResponse
     {
-       //dd($createOrderItemsRequest->validated("orderItems"));
-        $createOrderRequest->validated();
-       $createOrderItemsRequest->validated();
-        $createOrderDetailsRequest->validated();
-//            event(new TransactionEvent(new CreateTransactionRequest([
-//                'transactionName'=>'morah thankgod',
-//                'transactionEmail'=>'morahthankgod@gmail.com',
-//                'transactionAmount'=>'200',
-//                'transactionReference'=>'asas2121nsss',
-//            ])));
-
         try {
+            $createOrderRequest->validated();
+            $createOrderItemsRequest->validated();
+            $createOrderDetailsRequest->validated();
+
             //create order
             $order = Order::create($createOrderRequest->validated());
 
@@ -73,32 +66,6 @@ class OrderService
                 'orderItems'=>$orderItems->toArray(),
                 'bankDetail'=>$bankDetail ?? null
             ]);
-
-          //  dd($data);
-
-        /*            foreach ($request['orderItem'] as $items){
-                //todo check if product exist
-                $product = Product::find($items['orderProductId']);
-                if (!$product)
-                    throw new ExceptionUtil(ExceptionCase::UNABLE_TO_LOCATE_RECORD);
-                $data[] =[
-                    'orderSubTotalPrice' => $request['orderSubTotalPrice'],
-                    'orderTotalPrice'=>$request['orderTotalPrice'],
-                    'orderProductQuantity'=>$items['orderProductQuantity'],
-                    'orderProductVariation'=>$items['orderProductVariation'],
-                    'orderProductPrice'=>$items['orderProductPrice'],
-                    'orderAddress'=>$request['orderAddress'],
-                    'orderFullName'=>$request['orderFullName'],
-                    'orderEmail'=>$request['orderEmail'],
-                    'orderProductName'=>$product['productName']
-                ];
-//                dd($data);
-                 $order = $product->orders()->create(...$data);
-
-                 if ($order){
-
-                 }
-            }*/
 
             return $this->BASE_RESPONSE($data);
         }catch (Exception $ex){
