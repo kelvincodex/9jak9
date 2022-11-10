@@ -3,6 +3,7 @@
 namespace App\Http\Service;
 
 use App\Http\Requests\Order\CreateOrderRequest;
+use App\Http\Requests\Order\ReadByOrderIdRequest;
 use App\Http\Requests\Order\UpdateOrderRequest;
 use App\Http\Requests\OrderDetails\CreateOrderDetailsRequest;
 use App\Http\Requests\OrderItems\CreateOrderItemsRequest;
@@ -106,7 +107,7 @@ class OrderService
 
     }
 
-    public function readById(ReadByBankDetailsIdRequest $request): JsonResponse
+    public function readById(ReadByOrderIdRequest $request): JsonResponse
     {
         try {
             //todo validation

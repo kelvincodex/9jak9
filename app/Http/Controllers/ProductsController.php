@@ -2,17 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Category\CreateCategoryRequest;
 use App\Http\Requests\Product\CreateProductRequest;
 use App\Http\Requests\Product\ReadByProductIdRequest;
 use App\Http\Requests\Product\ReadProductByCategoryIdRequest;
 use App\Http\Requests\Product\ReadProductBySubCategoryIdRequest;
 use App\Http\Requests\Product\UpdateProductRequest;
-use App\Http\Requests\SubCategory\ReadSubCategoryByCategoryId;
 use App\Http\Service\ProductService;
-use App\Models\Category;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
 class ProductsController extends Controller
 {

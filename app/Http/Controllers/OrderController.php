@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Order\CreateBankDetailsRequest;
 use App\Http\Requests\Order\CreateOrderRequest;
-use App\Http\Requests\Order\UpdateBankDetailsRequest;
-use App\Http\Requests\Order\ReadByBankDetailsIdRequest;
+use App\Http\Requests\Order\ReadByOrderIdRequest;
+use App\Http\Requests\Order\UpdateOrderRequest;
 use App\Http\Requests\OrderDetails\CreateOrderDetailsRequest;
 use App\Http\Requests\OrderItems\CreateOrderItemsRequest;
 use App\Http\Service\OrderService;
@@ -30,7 +29,7 @@ class OrderController extends Controller
 
 
 
-    public function update(UpdateBankDetailsRequest $request): JsonResponse
+    public function update(UpdateOrderRequest $request): JsonResponse
     {
       return  $this->orderService->update($request);
     }
@@ -41,7 +40,7 @@ class OrderController extends Controller
         return $this->orderService->read();
     }
 
-    public function readById(ReadByBankDetailsIdRequest $request): JsonResponse
+    public function readById(ReadByOrderIdRequest $request): JsonResponse
     {
        return $this->orderService->readById($request);
     }
