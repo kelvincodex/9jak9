@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Notification;
+namespace App\Http\Requests\Product;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateNotificationRequest extends FormRequest
+class FilterProductByPriceRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +24,8 @@ class CreateNotificationRequest extends FormRequest
     public function rules()
     {
         return [
-            'notificationMessage'=>['required'],
-            'notificationTitle'=>['required']
+            'productMaxSellingPrice'=>['required'],
+            'productMinSellingPrice'=>['required'],
         ];
     }
 }

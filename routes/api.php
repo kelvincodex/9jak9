@@ -35,6 +35,7 @@ Route::prefix('v1')->group(function (){
                 Route::post('/update-product', 'update')->name("updateProduct");
                 Route::get('/read-products', 'read')->name("readProduct");
                 Route::post('/read-product-by-id', 'readById')->name("readByIdProduct");
+                Route::post('/filter-product-by-price', 'filterProductBySellingPrice')->name("readByIdProduct");
                 Route::post('/read-product-by-category-id', 'readProductByCategoryId')->name("readProductByCategoryIdProduct");
                 Route::post('/read-product-by-sub_category-id', 'readProductBySubCategoryId')->name("readProductBySubCategoryIdProduct");
                 Route::post('/delete-product', 'delete')->name("deleteProduct");

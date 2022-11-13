@@ -3,6 +3,7 @@
 namespace App\Http\Service;
 
 use App\Http\Requests\Product\CreateProductRequest;
+use App\Http\Requests\Product\FilterProductByPriceRequest;
 use App\Http\Requests\Product\ReadByProductIdRequest;
 use App\Http\Requests\Product\ReadProductByCategoryIdRequest;
 use App\Http\Requests\Product\ReadProductBySubCategoryIdRequest;
@@ -106,6 +107,22 @@ class ProductService
             return $this->ERROR_RESPONSE($ex->getMessage());
         }
     }
+
+    public function filterProductBySellingPrice(FilterProductByPriceRequest $request): JsonResponse
+    {
+        try {
+            //TODO VALIDATION
+            $request->validated();
+            //todo action
+            $product = Product::where('productSellingPrice', '=' ,$request['productMinSellingPrice'])
+                ->orWhere('productSellingPrice', '<=' ,$request['productMaxSellingPrice'])->get();
+            if (!$product) throw new ExceptionUtil(ExceptionCase::UNABLE_TO_LOCATE_RECORD);
+            return  $this->BASE_RESPONSE($product);
+        }catch (Exception $ex){
+            return $this->ERROR_RESPONSE($ex->getMessage());
+        }
+    }
+
     public function readProductBySubCategoryId(ReadProductBySubCategoryIdRequest $request): JsonResponse
     {
         try {

@@ -24,15 +24,11 @@ class CreateBankDetailsRequest extends FormRequest
     public function rules()
     {
         return [
-            'orderFullName'=>['required'],
-            'orderAddress'=>['required'],
-            'orderEmail'=>['required', 'email'],
-            'orderItem.*.orderProductVariation'=>['string'],
-            'orderItem.*.orderProductQuantity'=>['required'],
-            'orderItem.*.orderProductPrice'=>['required'],
-            'orderItem.*.orderProductId'=>['required'],
-            'orderSubTotalPrice'=>['required'],
-            'orderTotalPrice'=>['required'],
+            'bankDetailsName'=>['required'],
+            'bankDetailsSortCode'=>['required'],
+            'bankDetailsIban'=>['required'],
+            'bankDetailsNumber'=>['required'],
+            'bankDetailsBic'=>['required'],
         ];
     }
 }
