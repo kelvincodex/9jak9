@@ -9,10 +9,9 @@ use App\Http\Requests\Gallery\CreateGalleryRequest;
 use App\Http\Requests\Gallery\ReadByGalleryIdRequest;
 use App\Http\Requests\Gallery\UpdateGalleryRequest;
 use App\Http\Service\DeliveryService;
-use App\Http\Service\GalleryService;
+use App\Service\GalleryService;
 use App\Util\baseUtil\ResponseUtil;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
 class GalleryController extends Controller
 {

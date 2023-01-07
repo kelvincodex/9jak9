@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Category\CreateCategoryRequest;
 use App\Http\Requests\Category\ReadByCategoryIdRequest;
 use App\Http\Requests\Category\UpdateCategoryRequest;
-use App\Http\Service\CategoryService;
+use App\Service\CategoryService;
 use App\Util\baseUtil\ResponseUtil;
 use Illuminate\Http\JsonResponse;
 

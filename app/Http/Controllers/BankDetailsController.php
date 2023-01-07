@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\BankDetails\CreateBankDetailsRequest;
 use App\Http\Requests\BankDetails\ReadByBankDetailsIdRequest;
 use App\Http\Requests\BankDetails\UpdateBankDetailsRequest;
-use App\Http\Service\BankDetailsService;
+use App\Service\BankDetailsService;
 use App\Util\baseUtil\ResponseUtil;
 use Illuminate\Http\JsonResponse;
 

@@ -8,7 +8,7 @@ use App\Http\Requests\Product\ReadByProductIdRequest;
 use App\Http\Requests\Product\ReadProductByCategoryIdRequest;
 use App\Http\Requests\Product\ReadProductBySubCategoryIdRequest;
 use App\Http\Requests\Product\UpdateProductRequest;
-use App\Http\Service\ProductService;
+use App\Service\ProductService;
 use Illuminate\Http\JsonResponse;
 
 class ProductsController extends Controller

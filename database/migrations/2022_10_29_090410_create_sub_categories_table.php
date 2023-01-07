@@ -20,6 +20,7 @@ return new class extends Migration
                     ->constrained('categories', 'categoryId')
                     ->onDelete('cascade');
             $table->string("subCategoryStatus")->default("Active");
+            $table->softDeletes();
             $table->timestamps();
         });
     }

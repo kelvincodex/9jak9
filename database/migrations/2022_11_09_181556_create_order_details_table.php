@@ -26,6 +26,7 @@ return new class extends Migration
                     ->constrained("orders", "orderId")
                     ->onDelete('cascade');
             $table->string("orderDetailsStatus")->default("Active");
+            $table->softDeletes();
             $table->timestamps();
         });
     }

@@ -7,7 +7,7 @@ use App\Http\Requests\SubCategory\CreateSubCategoryRequest;
 use App\Http\Requests\SubCategory\ReadBySubCategoryIdRequest;
 use App\Http\Requests\SubCategory\ReadSubCategoryByCategoryId;
 use App\Http\Requests\SubCategory\UpdateSubCategoryRequest;
-use App\Http\Service\SubCategoryService;
+use App\Service\SubCategoryService;
 use App\Util\baseUtil\ResponseUtil;
 use Illuminate\Http\JsonResponse;
 

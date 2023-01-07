@@ -28,6 +28,7 @@ return new class extends Migration
             $table->string("productQuantity")->nullable();
             $table->string("productSlug")->nullable();
             $table->string("productStatus")->default("Active");
+            $table->softDeletes();
             $table->timestamps();
         });
     }

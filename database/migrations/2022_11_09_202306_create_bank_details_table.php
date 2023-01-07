@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string("bankDetailsIban")->nullable();
             $table->string("bankDetailsBic")->nullable();
             $table->string("bankDetailsStatus")->default("Active");
+            $table->softDeletes();
             $table->timestamps();
         });
     }

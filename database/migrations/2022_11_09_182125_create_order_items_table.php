@@ -23,6 +23,7 @@ return new class extends Migration
             $table->decimal("orderItemsTotalPrice")->nullable();
             $table->string("orderItemsQuantity")->nullable();
             $table->string("orderItemsStatus")->default("Active");
+            $table->softDeletes();
             $table->timestamps();
         });
     }

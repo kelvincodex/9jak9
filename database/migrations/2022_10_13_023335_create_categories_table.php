@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id("categoryId");
             $table->string("categoryName")->nullable();
             $table->string("categoryStatus")->default("ACTIVE");
+            $table->softDeletes();
             $table->timestamps();
         });
     }

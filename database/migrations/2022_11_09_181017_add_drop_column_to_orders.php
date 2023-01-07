@@ -22,6 +22,7 @@ return new class extends Migration
             $table->dropColumn("orderProductQuantity");
             $table->dropColumn("orderEmail");
             $table->dropForeign('orders_orderProductId_foreign');
+            $table->softDeletes();
             $table->dropColumn('orderProductId');
 
         });

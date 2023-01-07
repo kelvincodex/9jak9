@@ -29,6 +29,7 @@ return new class extends Migration
                 ->constrained('products', 'productId');
             $table->string("orderSubTotalPrice")->nullable();
             $table->string("orderStatus")->default("Pending");
+            $table->softDeletes();
             $table->timestamps();
         });
     }

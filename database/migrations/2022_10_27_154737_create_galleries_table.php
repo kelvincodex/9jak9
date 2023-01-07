@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string("galleryItem")->nullable();
             $table->string("galleryType")->nullable();
             $table->string("galleryStatus")->default("Active");
+            $table->softDeletes();
             $table->timestamps();
         });
     }

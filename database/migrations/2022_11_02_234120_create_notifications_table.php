@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string("notificationMessage")->nullable();
             $table->string("notificationTitle")->nullable();
             $table->string("notificationStatus")->default('Active');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
